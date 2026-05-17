@@ -6,7 +6,6 @@ import { createError } from "../middleware/errorHandler";
 const generateToken = (id: string) => {
   const secret = process.env.JWT_SECRET;
   if (!secret) throw new Error("JWT_SECRET not defined");
-
   return jwt.sign({ id }, secret, { expiresIn: "7d" });
 };
 
@@ -20,7 +19,6 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     }
 
     const user = await User.create({ name, email, password, role });
-
     const token = generateToken(user._id.toString());
 
     return res.status(201).json({
@@ -36,6 +34,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     next(createError("Registration failed", 500));
   }
 };
+
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body;
@@ -44,7 +43,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       return next(createError("Email and password required", 400));
     }
 
-    const user = await User.findOne({ email }).select('+password') // ← fix here
+    const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
       return next(createError("Invalid credentials", 401));
@@ -70,4 +69,10 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   } catch (err) {
     next(createError("Login failed", 500));
   }
+};
+
+export const getMe = async (req: Request, res: Response) => {
+  return res.json({
+    data: (req as any).user,
+  });
 };
