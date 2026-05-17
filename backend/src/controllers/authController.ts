@@ -44,7 +44,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       return next(createError("Email and password required", 400));
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select('+password') // ← fix here
 
     if (!user) {
       return next(createError("Invalid credentials", 401));
@@ -70,10 +70,4 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   } catch (err) {
     next(createError("Login failed", 500));
   }
-};
-
-export const getMe = async (req: Request, res: Response) => {
-  return res.json({
-    data: (req as any).user,
-  });
 };
