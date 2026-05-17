@@ -1,10 +1,20 @@
-# smartlead
+# SmartLead
 
 SmartLead is a full-stack Lead Management CRM application built using the MERN stack for managing customer leads efficiently.
 
 ---
 
-# Features
+## 🚀 Live Demo
+
+| Service  | URL |
+|----------|-----|
+| Frontend | https://smartlead1.onrender.com |
+| Backend  | https://smartlead-0zm3.onrender.com |
+| GitHub   | https://github.com/madhumathi789/smartlead |
+
+---
+
+## Features
 
 - JWT Authentication
 - Protected Routes
@@ -20,16 +30,16 @@ SmartLead is a full-stack Lead Management CRM application built using the MERN s
 
 ---
 
-# Tech Stack
+## Tech Stack
 
-## Frontend
+### Frontend
 - React
 - TypeScript
 - Vite
 - TailwindCSS
 - Axios
 
-## Backend
+### Backend
 - Node.js
 - Express.js
 - TypeScript
@@ -39,9 +49,9 @@ SmartLead is a full-stack Lead Management CRM application built using the MERN s
 
 ---
 
-# Project Structure
+## Project Structure
 
-```txt
+```
 smartlead/
 │
 ├── frontend/
@@ -59,9 +69,9 @@ smartlead/
 
 ---
 
-# Installation
+## Installation
 
-## Clone Repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/madhumathi789/smartlead.git
@@ -69,7 +79,7 @@ git clone https://github.com/madhumathi789/smartlead.git
 
 ---
 
-# Frontend Setup
+## Frontend Setup
 
 ```bash
 cd frontend
@@ -79,13 +89,13 @@ npm run dev
 
 Frontend runs on:
 
-```txt
+```
 http://localhost:5173
 ```
 
 ---
 
-# Backend Setup
+## Backend Setup
 
 ```bash
 cd backend
@@ -95,34 +105,25 @@ npm run dev
 
 Backend runs on:
 
-```txt
+```
 http://localhost:5000
 ```
 
 ---
 
-# Backend Scripts
+## Backend Scripts
 
 ```bash
-npm run dev
+npm run dev       # Runs backend using nodemon + ts-node
+npm run build     # Compiles TypeScript files into dist/
+npm start         # Runs production build from dist/index.js
 ```
-Runs backend using nodemon + ts-node.
-
-```bash
-npm run build
-```
-Compiles TypeScript files into `dist/`.
-
-```bash
-npm start
-```
-Runs production build from `dist/index.js`.
 
 ---
 
-# Environment Variables
+## Environment Variables
 
-Create a `.env` file inside backend folder.
+Create a `.env` file inside the `backend/` folder:
 
 ```env
 PORT=5000
@@ -135,45 +136,47 @@ CLIENT_URL=http://localhost:5173
 
 ---
 
-# API Routes
+## API Routes
 
-## Authentication
+### Authentication
 
 ```http
+POST /api/auth/register
 POST /api/auth/login
+GET  /api/auth/me
 ```
 
----
-
-## Leads
+### Leads
 
 ```http
-GET /api/leads
-POST /api/leads
-PUT /api/leads/:id
+GET    /api/leads
+POST   /api/leads
+PUT    /api/leads/:id
 DELETE /api/leads/:id
 ```
 
 ---
 
-# Sample Credentials
+## Sample Credentials
 
-## Admin
-
-```txt
-Email: admin@test.com
+### Admin
+```
+Email:    admin@test.com
 Password: 123456
 ```
 
 ---
 
-# Deployment
+## Deployment
 
-Frontend and Backend deployed using Render.
+Frontend and Backend deployed on **Render**.
+
+- Frontend: https://smartlead1.onrender.com
+- Backend API: https://smartlead-0zm3.onrender.com
 
 ---
 
-# Future Improvements
+## Future Improvements
 
 - Analytics Dashboard
 - Charts & Reports
@@ -183,6 +186,7 @@ Frontend and Backend deployed using Render.
 
 ---
 
-# Author
+## Author
 
-Madhumathi
+**Madhumathi**  
+GitHub: [@madhumathi789](https://github.com/madhumathi789)
