@@ -1,101 +1,94 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import api from '../services/api'
-import { useAuth } from '../context/AuthContext'
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import api from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const { login } = useAuth()
-  const navigate = useNavigate()
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
     try {
-      const res = await api.post('/auth/login', form)
-      login(res.data.token, res.data.data)
-      navigate('/dashboard')
-    } catch (err: unknown) {
-      const message =
-        (err as { response?: { data?: { error?: string } } })
-          ?.response?.data?.error || 'Login failed'
-      setError(message)
+      const res = await api.post("/auth/login", form);
+
+      const { token, data } = res.data;
+
+      login(token, data);
+
+      navigate("/dashboard");
+    } catch (err: any) {
+      setError(
+        err?.response?.data?.error || "Login failed. Please try again."
+      );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <div className="card w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-lg">SL</span>
-          </div>
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-            Welcome back
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-            Sign in to your account
-          </p>
-        </div>
+        <h2 className="text-2xl font-bold mb-4">Login</h2>
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm p-3 rounded-lg mb-4">
+          <div className="bg-red-100 text-red-600 p-2 rounded mb-3">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="input-field"
-              placeholder="you@example.com"
-              required
-            />
-          </div>
+          <input
+            type="email"
+            placeholder="Email"
+            className="input-field"
+            value={form.email}
+            onChange={(e) =>
+              setForm({ ...form, email: e.target.value })
+            }
+            required
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="input-field"
-              placeholder="••••••••"
-              required
-            />
-          </div>
+          <input
+            type="password"
+            placeholder="Password"
+            className="input-field"
+            value={form.password}
+            onChange={(e) =>
+              setForm({ ...form, password: e.target.value })
+            }
+            required
+          />
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-primary py-2.5"
+            className="btn-primary w-full"
           >
-            {loading ? 'Signing in...' : 'Sign in'}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-blue-600 hover:underline">
+        <p className="mt-4 text-sm">
+          Don’t have an account?{" "}
+          <Link to="/register" className="text-blue-600">
             Register
           </Link>
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
